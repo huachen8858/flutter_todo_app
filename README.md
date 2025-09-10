@@ -1,16 +1,17 @@
-# flutter_todo_app
+This project is a practive app built with Flutter (3.37.0-1.0.pre-16, dart 3.10.0).
+It is a simple Todo application where you can manage your daily tasks.
 
-A new Flutter project.
+## Features
+- Add Todo: create new tasks easily
+- Check/ Uncheck Todo: mark tasks as completed or incomplete
+- Delete Todo: remove tasks by using slide gesture
 
-## Getting Started
+## Packages Used
+- flutter_slidable: for slide to delete functionality
 
-This project is a starting point for a Flutter application.
+## Get start by using flollowing step
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. git clone & ensure your devices is ready
+2. cd flutter-todo-app
+3. flutter pub get
+4. flutter run
