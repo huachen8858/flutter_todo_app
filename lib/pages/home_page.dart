@@ -11,8 +11,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _controller = TextEditingController();
   List toDoList = [
-    ['Learn Javascript', true],
-    ['Learn Flutter', true],
+    ['Learn Javascript', false],
+    ['Learn Flutter', false],
     ['Drink Coffee', false],
     ['Explore Firebase', false],
   ];
@@ -22,11 +22,17 @@ class _HomePageState extends State<HomePage> {
       toDoList[index][1] = !toDoList[index][1];
     });
   }
-  
+
   void saveNewTask() {
     setState(() {
       toDoList.add([_controller.text, false]);
       _controller.clear();
+    });
+  }
+
+  void deleteTask(int index) {
+    setState(() {
+      toDoList.removeAt(index);
     });
   }
 
@@ -35,7 +41,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.lightBlue[200],
       appBar: AppBar(
-        backgroundColor: Colors.lightBlue[300],
+        backgroundColor: Colors.lightBlue,
         foregroundColor: Colors.white,
         title: const Text("My Todo List"),
       ),
@@ -46,39 +52,43 @@ class _HomePageState extends State<HomePage> {
             taskName: toDoList[index][0],
             taskCompleted: toDoList[index][1],
             onChanged: (value) => checkBoxChanged(index),
+            deleteFunction: (value) => deleteTask(index),
           );
         },
       ),
-      floatingActionButton: Row(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: TextField(
-                controller: _controller,
-                decoration: InputDecoration(
-                  hintText: 'Add a new todo items',
-                  filled: true,
-                  fillColor: Colors.lightBlue[100],
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.lightBlue),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.lightBlue),
-                    borderRadius: BorderRadius.circular(15),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: TextField(
+                  controller: _controller,
+                  decoration: InputDecoration(
+                    hintText: 'Add a new todo items',
+                    filled: true,
+                    fillColor: Colors.lightBlue[100],
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.lightBlue),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.lightBlue),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          FloatingActionButton(
-            onPressed: saveNewTask,
-            tooltip: 'Increment',
-            backgroundColor: Colors.lightBlue[600],
-            child: const Icon(Icons.add, color: Colors.white),
-          ),
-        ],
+            FloatingActionButton(
+              onPressed: saveNewTask,
+              tooltip: 'Increment',
+              backgroundColor: Colors.lightBlue[600],
+              child: const Icon(Icons.add, color: Colors.white),
+            ),
+          ],
+        ),
       ),
     );
   }
