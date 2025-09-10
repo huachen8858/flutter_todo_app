@@ -9,6 +9,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _controller = TextEditingController();
   List toDoList = [
     ['Learn Javascript', true],
     ['Learn Flutter', true],
@@ -21,10 +22,18 @@ class _HomePageState extends State<HomePage> {
       toDoList[index][1] = !toDoList[index][1];
     });
   }
+  
+  void saveNewTask() {
+    setState(() {
+      toDoList.add([_controller.text, false]);
+      _controller.clear();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlue[200],
       appBar: AppBar(
         backgroundColor: Colors.lightBlue[300],
         foregroundColor: Colors.white,
@@ -40,11 +49,37 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      floatingActionButton: Row(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: TextField(
+                controller: _controller,
+                decoration: InputDecoration(
+                  hintText: 'Add a new todo items',
+                  filled: true,
+                  fillColor: Colors.lightBlue[100],
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.lightBlue),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.lightBlue),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          FloatingActionButton(
+            onPressed: saveNewTask,
+            tooltip: 'Increment',
+            backgroundColor: Colors.lightBlue[600],
+            child: const Icon(Icons.add, color: Colors.white),
+          ),
+        ],
+      ),
     );
   }
 }
