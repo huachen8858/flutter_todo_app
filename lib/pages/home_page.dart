@@ -16,6 +16,12 @@ class _HomePageState extends State<HomePage> {
     ['Explore Firebase', false],
   ];
 
+  void checkBoxChanged(int index) {
+    setState(() {
+      toDoList[index][1] = !toDoList[index][1];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +33,11 @@ class _HomePageState extends State<HomePage> {
       body: ListView.builder(
         itemCount: toDoList.length,
         itemBuilder: (BuildContext context, index) {
-          return TodoList(taskName: toDoList[index][0]);
+          return TodoList(
+            taskName: toDoList[index][0],
+            taskCompleted: toDoList[index][1],
+            onChanged: (value) => checkBoxChanged(index),
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(
